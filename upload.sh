@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#export HOME=/home/motion
-FILE=$(basename $@)
-$HOME/dropbox_uploader.sh upload $@ "MotionUploader/$FILE"
-rm -f $@
+HOME=/home/motion
+DIR=$(dirname $@)
+flock -n "$HOME/upload.lock" -c "$HOME/upload_loop.sh $DIR"
+
