@@ -13,7 +13,8 @@ while true; do
 
   for FILEPATH in $DIR/*.jpg; do
     FILE=$(basename $FILEPATH)
-    $HOME/dropbox_uploader.sh upload $FILEPATH "MotionUploader/$FILE"
+    DATE=$(stat -c %y $FILEPATH | awk '{ print $1 }')
+    $HOME/dropbox_uploader.sh upload $FILEPATH "MotionUploader/$DATE/$FILE"
     rm -f $FILEPATH
   done
   
